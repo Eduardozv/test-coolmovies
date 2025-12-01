@@ -30,9 +30,11 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
   const [store, setStore] = useState<EnhancedStore | null>(null);
   const [client, setClient] = useState<ApolloClient<any> | null>(null);
   React.useEffect(() => {
+    const graphqlUrl = process.env.NEXT_PUBLIC_GRAPHQL_URL || '/graphql';
+
     const client = new ApolloClient({
       cache: new InMemoryCache(),
-      uri: '/graphql',
+      uri: graphqlUrl,
     });
 
     const store = createStore({ epicDependencies: { client } });
