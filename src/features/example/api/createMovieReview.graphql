@@ -1,0 +1,20 @@
+mutation CreateMovieReview($input: CreateMovieReviewInput!) {
+  createMovieReview(input: $input) {
+    movieReview {
+      id
+      title
+      body
+      rating
+      movieByMovieId {
+        id
+        title
+        imgUrl
+        releaseDate
+      }
+      userByUserReviewerId {
+        id
+        name
+      }
+    }
+  }
+}

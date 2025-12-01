@@ -1,0 +1,10 @@
+query AllMovies {
+  allMovies {
+    nodes {
+      id
+      title
+      imgUrl
+      releaseDate
+    }
+  }
+}

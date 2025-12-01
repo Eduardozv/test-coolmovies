@@ -10,9 +10,10 @@ import {
 } from '@mui/material';
 import { memo } from 'react';
 import { useAllMovieReviewsQuery } from '../../../generated/graphql';
+import { AddReviewForm } from '../components/AddReviewForm';
 
 const MovieReviews = () => {
-  const { data, loading, error } = useAllMovieReviewsQuery({
+  const { data, loading, error, refetch } = useAllMovieReviewsQuery({
     fetchPolicy: 'network-only',
   });
 
@@ -39,6 +40,8 @@ const MovieReviews = () => {
       <Typography variant="h4" css={styles.heading}>
         Movie Reviews
       </Typography>
+
+      <AddReviewForm onReviewAdded={() => refetch()} />
 
       {reviews.length === 0 ? (
         <Typography variant="body1" css={styles.emptyState}>
