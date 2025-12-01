@@ -6,6 +6,7 @@ import {
   Tooltip,
   Typography,
   Zoom,
+  useTheme,
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../../state';
 import { exampleActions } from '../state';
@@ -13,9 +14,8 @@ import { memo } from 'react';
 import { useCurrentUserLazyQuery } from '../../../generated/graphql';
 import { FetchButton } from '../components/FetchButton';
 
-const primary = '#1976d2';
-
 const Example = () => {
+  const theme = useTheme();
   const dispatch = useAppDispatch();
   const exampleState = useAppSelector((state) => state.example);
 
@@ -24,7 +24,7 @@ const Example = () => {
   });
   return (
     <div css={styles.root}>
-      <Paper elevation={3} css={styles.navBar}>
+      <Paper elevation={3} css={css(styles.navBar, { background: theme.palette.primary.main })}>
         <Typography>{'EcoPortal'}</Typography>
       </Paper>
 
@@ -103,7 +103,6 @@ const styles = {
     alignItems: 'center',
   }),
   navBar: css({
-    background: primary,
     height: 50,
     alignSelf: 'stretch',
     display: 'flex',

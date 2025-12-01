@@ -6,6 +6,25 @@ import Head from 'next/head';
 import { createStore } from '../state';
 import { EnhancedStore } from '@reduxjs/toolkit';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#7c3aed',
+      light: '#a78bfa',
+      dark: '#5b21b6',
+      contrastText: '#fff',
+    },
+    secondary: {
+      main: '#ec4899',
+      light: '#f9a8d4',
+      dark: '#be185d',
+      contrastText: '#fff',
+    },
+  },
+});
 
 const App: FC<AppProps> = ({ Component, pageProps }) => {
   const [store, setStore] = useState<EnhancedStore | null>(null);
@@ -29,11 +48,14 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
         <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
         <meta name='viewport' content='width=device-width, initial-scale=1.0' />
       </Head>
-      <ReduxProvider store={store}>
-        <ApolloProvider client={client}>
-          <Component {...pageProps} />
-        </ApolloProvider>
-      </ReduxProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <ReduxProvider store={store}>
+          <ApolloProvider client={client}>
+            <Component {...pageProps} />
+          </ApolloProvider>
+        </ReduxProvider>
+      </ThemeProvider>
     </>
   );
 };
