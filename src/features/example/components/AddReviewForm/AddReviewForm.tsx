@@ -132,12 +132,23 @@ const AddReviewForm = ({ onReviewAdded }: AddReviewFormProps) => {
 
         <form onSubmit={handleSubmit} css={styles.form}>
           <FormControl fullWidth required>
-            <InputLabel>Movie</InputLabel>
+            <InputLabel id="movie-select-label">Movie</InputLabel>
             <Select
+              labelId="movie-select-label"
+              id="movie-select"
               value={movieId}
               onChange={(e) => setMovieId(e.target.value)}
               label="Movie"
               disabled={submitting}
+              MenuProps={{
+                keepMounted: true,
+                PaperProps: {
+                  id: 'movie-select-menu',
+                },
+              }}
+              SelectDisplayProps={{
+                'aria-controls': 'movie-select-menu',
+              }}
             >
               {movies.map((movie) => {
                 if (!movie) return null;
@@ -153,6 +164,7 @@ const AddReviewForm = ({ onReviewAdded }: AddReviewFormProps) => {
           <TextField
             fullWidth
             required
+            id="review-title"
             label="Review Title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -164,6 +176,7 @@ const AddReviewForm = ({ onReviewAdded }: AddReviewFormProps) => {
             fullWidth
             multiline
             rows={4}
+            id="review-body"
             label="Review Body"
             value={body}
             onChange={(e) => setBody(e.target.value)}
@@ -172,12 +185,14 @@ const AddReviewForm = ({ onReviewAdded }: AddReviewFormProps) => {
           />
 
           <div css={styles.ratingContainer}>
-            <Typography component="legend">Rating</Typography>
+            <Typography id="rating-label" component="legend">Rating</Typography>
             <Rating
+              name="movie-rating"
               value={rating}
               onChange={(_, newValue) => setRating(newValue)}
               disabled={submitting}
               size="large"
+              getLabelText={(value) => `${value} Star${value !== 1 ? 's' : ''}`}
             />
           </div>
 
